@@ -1,17 +1,21 @@
+import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
 import { TextInput, View, StyleSheet, Button } from 'react-native'
 import { useSignupUserMutation } from '../../gql/mutations/SignupUser.generated'
 
 export const CreateUser: React.FC = () => {
-    const [signupUser] = useSignupUserMutation({ refetchQueries: ['AllUsers'] })
+    const [signupUser] = useSignupUserMutation()
+    const navigation = useNavigation()
 
     const [name, setName] = useState<string | null>(null)
     const [age, setAge] = useState<string | null>(null)
 
     const handleSubmit = () => {
-        signupUser({ variables: { data: { name, age: parseInt(age) } } }).then((res) => {
+        signupUser({ variables: { data: { name, age: parseInt(age) } } }).then(({ data }) => {
             setAge(null)
             setName(null)
+
+            navigation.navigate('UsersScreen', { newUser: data.signupUser })
         })
     }
     return (

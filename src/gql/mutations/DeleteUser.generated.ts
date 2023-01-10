@@ -5,16 +5,16 @@ import { UserFragmentDoc } from '../fragments/User.generated';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type DeleteUserMutationVariables = Types.Exact<{
-  id: Types.Scalars['Int'];
+  deleteUserId: Types.Scalars['Int'];
 }>;
 
 
-export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser?: { __typename?: 'User', age: number, id: number, name: string } | null };
+export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser?: { __typename?: 'User', id: number, name: string, age: number, movie?: string | null } | null };
 
 
 export const DeleteUserDocument = gql`
-    mutation DeleteUser($id: Int!) {
-  deleteUser(id: $id) {
+    mutation DeleteUser($deleteUserId: Int!) {
+  deleteUser(id: $deleteUserId) {
     ...User
   }
 }
@@ -34,7 +34,7 @@ export type DeleteUserMutationFn = Apollo.MutationFunction<DeleteUserMutation, D
  * @example
  * const [deleteUserMutation, { data, loading, error }] = useDeleteUserMutation({
  *   variables: {
- *      id: // value for 'id'
+ *      deleteUserId: // value for 'deleteUserId'
  *   },
  * });
  */

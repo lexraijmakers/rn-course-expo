@@ -9,7 +9,7 @@ export type SignupUserMutationVariables = Types.Exact<{
 }>;
 
 
-export type SignupUserMutation = { __typename?: 'Mutation', signupUser: { __typename?: 'User', age: number, id: number, name: string } };
+export type SignupUserMutation = { __typename?: 'Mutation', signupUser: { __typename?: 'User', id: number, name: string, age: number, movie?: string | null } };
 
 
 export const SignupUserDocument = gql`

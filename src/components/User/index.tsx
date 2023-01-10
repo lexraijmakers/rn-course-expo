@@ -1,16 +1,28 @@
-import { Text, View, StyleSheet, Button, GestureResponderEvent } from 'react-native'
-import { User as UserType } from '../../gql/graphql'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { Text, View, StyleSheet, Button } from 'react-native'
+import { UserFragment } from '../../gql/fragments/User.generated'
 
-export interface UserProps extends UserType {
+export interface UserProps {
+    user: UserFragment
     handleDelete: (id: number) => void
+    newUser: boolean
 }
 
-export const User: React.FC<UserProps> = ({ name, age, id, handleDelete }) => {
+export const User: React.FC<UserProps> = ({ user, handleDelete, newUser = false }) => {
+    const navigation = useNavigation()
+
     return (
-        <View style={styles.card}>
-            <Text>name: {name}</Text>
-            <Text>age: {age}</Text>
-            <Button title="delete" onPress={() => handleDelete(id)} />
+        <View style={{ backgroundColor: newUser ? 'green' : 'white', ...styles.card }}>
+            <Text>name: {user?.name}</Text>
+            <Text>age: {user?.age}</Text>
+            <Text>movie: {user?.movie}</Text>
+
+            <Button title="delete" onPress={() => handleDelete(user.id)} />
+
+            <Button
+                title="Edit movie"
+                onPress={() => navigation.navigate('MoviesScreen', { user })}
+            />
         </View>
     )
 }
@@ -18,7 +30,7 @@ export const User: React.FC<UserProps> = ({ name, age, id, handleDelete }) => {
 const styles = StyleSheet.create({
     card: {
         display: 'flex',
-        height: 80,
+        height: 140,
         margin: 12,
         borderWidth: 1,
         padding: 10

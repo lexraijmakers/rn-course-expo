@@ -1,5 +1,6 @@
 fragment User on User {
-    age
     id
     name
+    age
+    movie
 }

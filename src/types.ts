@@ -16,6 +16,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   deleteUser?: Maybe<User>;
   signupUser: User;
+  updateUser?: Maybe<User>;
 };
 
 
@@ -28,6 +29,11 @@ export type MutationSignupUserArgs = {
   data: UserCreateInput;
 };
 
+
+export type MutationUpdateUserArgs = {
+  data: UserUpdateInput;
+};
+
 export type Query = {
   __typename?: 'Query';
   allUsers: Array<User>;
@@ -37,10 +43,16 @@ export type User = {
   __typename?: 'User';
   age: Scalars['Int'];
   id: Scalars['Int'];
+  movie?: Maybe<Scalars['String']>;
   name: Scalars['String'];
 };
 
 export type UserCreateInput = {
   age: Scalars['Int'];
   name: Scalars['String'];
+};
+
+export type UserUpdateInput = {
+  id: Scalars['Int'];
+  movie: Scalars['String'];
 };
