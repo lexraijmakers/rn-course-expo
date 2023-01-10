@@ -1,21 +1,37 @@
 {
-  "name": "expo-test-app",
-  "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
-  },
-  "dependencies": {
-    "expo": "~47.0.12",
-    "expo-status-bar": "~1.4.2",
-    "react": "18.1.0",
-    "react-native": "0.70.5"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.12.9"
-  },
-  "private": true
+    "name": "expo-test-app",
+    "version": "1.0.0",
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+        "start": "expo start",
+        "android": "expo start --android",
+        "ios": "expo start --ios",
+        "web": "expo start --web",
+        "codegen": "graphql-codegen --config codegen.yml"
+    },
+    "dependencies": {
+        "@apollo/client": "^3.7.3",
+        "@expo/webpack-config": "^0.17.2",
+        "@types/react": "~18.0.24",
+        "@types/react-native": "~0.70.6",
+        "expo": "~47.0.12",
+        "expo-status-bar": "~1.4.2",
+        "graphql": "^16.6.0",
+        "react": "18.1.0",
+        "react-dom": "18.1.0",
+        "react-native": "0.70.5",
+        "react-native-web": "~0.18.9",
+        "typescript": "^4.9.4"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.12.9",
+        "@graphql-codegen/cli": "^2.16.3",
+        "@graphql-codegen/client-preset": "1.2.5",
+        "@graphql-codegen/fragment-matcher": "^3.3.3",
+        "@graphql-codegen/near-operation-file-preset": "^2.5.0",
+        "@graphql-codegen/typescript": "^2.8.7",
+        "@graphql-codegen/typescript-operations": "^2.5.12",
+        "@graphql-codegen/typescript-react-apollo": "^3.3.7"
+    },
+    "private": true
 }
