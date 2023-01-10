@@ -57,13 +57,15 @@ export const Movies = () => {
                     setTitle(data.Title)
                 })
         }
-    }, [])
 
-    useEffect(() => {
         return () => {
             Speech.stop()
         }
     }, [])
+
+    useEffect(() => {
+        if (movies?.Search?.[0]?.imdbID) setSelectedMovie(movies?.Search?.[0]?.imdbID)
+    }, [movies])
 
     return (
         <View>
@@ -99,6 +101,7 @@ export const Movies = () => {
                                 setModalVisible(false)
                             }}
                         />
+
                         <Button title="confirm" onPress={handleSubmit} />
                     </View>
 

@@ -7,20 +7,23 @@ export const ScreenWrapper = ({ navigation, children }) => {
 
     return (
         <SafeAreaView>
-            {route.name !== 'CreateUserScreen' && (
-                <Button
-                    title="Go to create user"
-                    onPress={() => navigation.push('CreateUserScreen')}
-                />
-            )}
+            <ScrollView>
+                {route.name !== 'CreateUserScreen' && (
+                    <Button
+                        title="Go to create user"
+                        onPress={() => navigation.push('CreateUserScreen')}
+                    />
+                )}
 
-            {route.name !== 'UsersScreen' && (
-                <Button title="Go to users" onPress={() => navigation.navigate('UsersScreen')} />
-            )}
+                {route.name !== 'UsersScreen' && (
+                    <Button
+                        title="Go to users"
+                        onPress={() => navigation.navigate('UsersScreen')}
+                    />
+                )}
 
-            <ScrollView>{children}</ScrollView>
-
-            <StatusBar style="auto" />
+                {children}
+            </ScrollView>
         </SafeAreaView>
     )
 }

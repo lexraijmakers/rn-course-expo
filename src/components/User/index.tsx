@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import { useEffect, useState } from 'react'
-import { Text, View, StyleSheet, Button } from 'react-native'
+import { Text, View, StyleSheet, Button, Image } from 'react-native'
 import { UserFragment } from '../../gql/fragments/User.generated'
 import { Movie } from '../Movies/types'
 
@@ -16,25 +16,41 @@ export const User: React.FC<UserProps> = ({ user, handleDelete, newUser = false 
     const [movie, setMovie] = useState<Movie | null>(null)
 
     useEffect(() => {
-        fetch(`http://www.omdbapi.com/?i=${user.movie}&apikey=${OMDB_API_KEY}`)
-            .then((response) => response.json())
-            .then((data: Movie) => {
-                setMovie(data)
-            })
-    }, [])
+        if (user.movie) {
+            fetch(`http://www.omdbapi.com/?i=${user.movie}&apikey=${OMDB_API_KEY}`)
+                .then((response) => response.json())
+                .then((data: Movie) => {
+                    setMovie(data)
+                })
+        }
+    }, [user])
 
     return (
         <View style={{ backgroundColor: newUser ? 'green' : 'white', ...styles.card }}>
             <Text>name: {user?.name}</Text>
             <Text>age: {user?.age}</Text>
-            <Text>movie: {movie?.Title}</Text>
 
-            <Button title="delete" onPress={() => handleDelete(user.id)} />
+            {movie ? (
+                <>
+                    <Text>movie: {movie?.Title}</Text>
+                    <Image style={{ flex: 1, height: 200 }} source={{ uri: movie?.Poster }} />
+                </>
+            ) : null}
 
-            <Button
-                title="Edit movie"
-                onPress={() => navigation.navigate('MoviesScreen', { user })}
-            />
+            <View
+                style={{
+                    justifyContent: 'space-around',
+                    flex: 1,
+                    flexDirection: 'row'
+                }}
+            >
+                <Button title="delete" onPress={() => handleDelete(user.id)} />
+
+                <Button
+                    title="Edit movie"
+                    onPress={() => navigation.navigate('MoviesScreen', { user })}
+                />
+            </View>
         </View>
     )
 }
@@ -42,7 +58,6 @@ export const User: React.FC<UserProps> = ({ user, handleDelete, newUser = false 
 const styles = StyleSheet.create({
     card: {
         display: 'flex',
-        height: 140,
         margin: 12,
         borderWidth: 1,
         padding: 10
